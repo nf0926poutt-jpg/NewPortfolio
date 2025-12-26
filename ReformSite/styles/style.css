@@ -1,0 +1,662 @@
+@charset "utf-8" ;
+
+.header {
+    display: flex;             
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px;
+  width: 100%;
+}
+.gMenu ul {
+    display: flex;
+}
+header nav ul li {
+    font-family: "Noto Serif JP", serif;
+    font-size: 16px;
+    margin: 10px;
+    color: #333;
+}
+header nav ul li a:hover{
+    text-decoration: underline  solid #333 1px;
+}
+footer {
+    background-color: #333;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Serif JP", serif;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+    padding: 20px 0;
+}
+.meetingphoto {
+    width: auto;
+    height: 545px;
+    overflow: hidden;
+}
+.meetingphoto img {
+    width: 100%;    
+    height: 100%;   
+    object-fit: cover;
+    object-position:  50% 55%;
+}
+
+h2 {
+    color: #333;
+    font-family: "Noto Serif JP", serif;
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    line-height: 42px;
+    margin-bottom: 10px;
+    margin-top: 100px;
+}
+h3 {
+    text-align: center;
+    font-family: "Noto Serif JP", serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    line-height: 16px;
+    margin-bottom: 50px;
+}
+h4 {
+    color: #333;
+    font-family: Noto sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.1em;
+    line-height: 28px;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+.sub1 {
+    color: #223e69;
+    
+}
+.concept {
+    color: #333;
+    font-family: Noto sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 0.1em;
+    line-height: 32px;
+    height: 64px;
+    margin: 0 150px;
+}
+.sub2 {
+    color: #223e69;    
+}
+.service {
+    display: flex;
+    justify-content: space-evenly;
+}
+.service img {
+    height: auto;
+    object-fit: contain;
+}
+.mei {
+    font-family:"Noto Serif JP", serif;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    color: #333;
+    letter-spacing: 0.1em;
+    line-height: 24px;
+    padding: 8px 95px;
+    
+}
+.bun {
+    font-family: Noto sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.1em;
+}
+.more {
+    font-size: 12px;
+    font-family: Noto sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    line-height: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+.more a:hover{
+    text-decoration: underline  solid #333 1px;
+}
+
+.flow {
+    width: 1366px;
+    width: 100%;
+    height: 498px;
+    background-color: rgba(34, 62, 105, 0.05); 
+}
+.flowinside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+h5 {
+    font-family: Noto sans-serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #333;
+    background-color: #333;
+    letter-spacing: 0.1em;
+    line-height: 28px;
+    width: 60px;
+    height: 280px;
+    border-radius: 30px;
+    padding: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.red img{
+    width: 30px;
+    height: 60px;
+    margin: 30px;
+    }
+    .sub3 {
+        color: #b71B26;
+    }
+
+
+.qazone {
+    margin: 200px;
+} 
+.q1, .q2, .a1, .a2 {
+    margin: 30px;
+    letter-spacing: 0.1em;
+    line-height: 30px;
+}
+.q2 {
+    margin-top: 60px;
+}
+
+.qa {
+    font-family:Noto sans-serif;
+
+}
+.q {
+    font-family:"Noto Serif JP", serif;
+    font-size: 34px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 34px;
+    border: 1px solid #333;
+    background-color: #333;
+    border-radius: 50%;
+    text-align: center;
+    
+}
+
+.a {
+    font-family:"Noto Serif JP", serif;
+    font-size: 34px;
+    font-weight: bold;
+    color: #fff;
+    border: 1px solid #b71B26;
+    background-color: #b71B26;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+
+.contact {
+    background-color:rgba(34, 62, 105, 0.3);
+    color: #333;
+    padding: 40px;
+    max-width: 100%;
+}
+
+.denger {
+    font-family: Noto sans-serif;
+    font-size: 12px;
+    border: 1px solid #b71B26;
+    background-color: #b71B26;
+    color: #fff;
+    border-radius: 15%;
+    width: 38px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 2px 5px;
+    text-align: center;
+}
+.form {
+    font-family:Noto sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    line-height: 20px;
+    margin: 20px;
+}
+.f {
+    
+    margin: auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    
+}
+input[type="text"], 
+input[type=email],
+input[type=tel] {
+    border: 1px solid #fff;
+    background-color: #fff;
+    padding: 4px;
+}
+.form .post_code {
+  max-width: 30%;
+  margin-bottom: 10px; 
+}
+.form input[name="adress"] {
+  width: 50%;
+  text-align: center; 
+}
+textarea {
+    border: 1px solid #fff;
+    background-color: #fff;
+    width: 70%;
+    margin-top: 5px;
+    padding: 4px 8px;
+    height: 250px;
+    margin-bottom: 30px;
+}
+input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    vertical-align: baseline;
+    margin-right: 4px;
+}
+form > p {
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    font-family:"Noto Serif JP", serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 25px;
+    text-align: center;
+}
+
+.submitBtn {
+    position: fixed; 
+    bottom: 50px; right: 30px;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+.last {
+    padding: 90px;
+}
+
+/* チェックボックスは常に非表示です */
+.gMenu .menu-btn {
+  display: none;
+}
+
+
+@media screen and (max-width:768px) {
+    .meetingphoto {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+}
+    .meetingphoto img {
+        height: 480px;
+        width: auto;
+        overflow: hidden;
+        object-fit: cover;
+        object-position: 5% 9%;
+    }
+    h1 img {
+        width: 240px;
+        height: 20px;
+    }
+    header {
+        display: block;
+        /*width: 375px;
+        height: 52px*/
+    }
+    h2 {
+        color: #333;
+        font-family: "Noto Serif JP", serif;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 0.1em;
+        margin-bottom: 0;
+        margin-top: 20px;
+    }
+    h3 {
+        text-align: center;
+        font-family: "Noto Serif JP", serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        margin-bottom: 10px;
+    }
+    h4 {
+        color: #333;
+        font-family: Noto sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        letter-spacing: 0.1em;
+        margin: 0 auto;
+    }
+    .concept {
+        color: #333;
+        font-family: Noto sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+        height: auto;
+        margin: auto;
+    }
+    .con {
+        text-align: center;
+    }
+    h3 {
+        text-align: center;
+        font-family: "Noto Serif JP", serif;
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .service,
+    .mei,
+    .bun,
+    .more {
+        display: block;
+        margin: auto;
+    }
+    .service p {
+        margin-bottom: 40px;
+    }
+    .service p img {
+        display: block;
+        margin: 0 auto;
+        padding: 0 10px;
+        
+    }
+    .mei {
+        font-family:"Noto Serif JP", serif;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        color: #333;
+        padding: 8px 0;
+        
+    }
+    .bun {
+        font-family: Noto sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+       
+    }
+    .more {
+        font-size: 14px;
+        font-family: Noto sans-serif;
+        font-weight: 400;
+        text-align: center;
+    }
+    .more a:hover{
+        text-decoration: underline  solid #333 1px;
+    }
+.flow {
+    width: 100%;
+    height: 456px;
+    background-color: rgba(34, 62, 105, 0.05); 
+}
+.flowinside {
+        display: block;
+}
+h5 {
+    font-family: Noto sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+    border: 1px solid #333;
+    background-color: #333;
+    letter-spacing: 0.1em;
+    width: 300px;
+    height: 32px;
+    border-radius: 30px;
+    padding: 0 5px;
+    margin: 0 auto;
+}
+.red img{
+    width: 16px;
+    height: 32px;
+    transform: rotate(90deg);
+    margin: 2px auto;
+    display: flex;
+    }
+
+ .qazone {
+    margin: 0;
+} 
+.q1, .q2, .a1, .a2 {
+    margin: 30px;
+    letter-spacing: 0.1em;  
+}
+.q2 {
+    margin-top: 60px;
+}
+.qa {
+    font-family:Noto sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+.q {
+    font-family:"Noto Serif JP", serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    border: 1px solid #333;
+    background-color: #333;
+    border-radius: 50%;
+    text-align: center;
+    
+}
+
+.a {
+    font-family:"Noto Serif JP", serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    border: 1px solid #b71B26;
+    background-color: #b71B26;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    text-align: center;
+}
+header nav ul {
+    display: block;
+}
+
+.contact {
+    background-color:rgba(34, 62, 105, 0.15);
+    
+    color: #333;
+    max-width: 100%;
+    padding: 0;
+}
+
+.denger {
+    font-family: Noto sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    border: 1px solid #b71B26;
+    background-color: #b71B26;
+    color: #fff;
+    border-radius: 15%;
+    width: 38px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 2px 5px;
+    text-align: center;
+}
+.form {
+    font-family:Noto sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    margin: 10px;
+}
+.f {
+    background:none;
+    
+}
+input[type="text"], 
+input[type=email],
+input[type=tel] {
+    border: 1px solid #fff;
+    background-color: #fff;
+    padding: 4px;
+    display: block;
+    width: 100%;
+}
+.post_code {
+    max-width: 35%;
+}
+textarea {
+    border: 1px solid #fff;
+    background-color: #fff;
+    max-width: 100%;
+    margin-top: 5px;
+    height: 250px;
+    display: block;
+    width: 100%;
+    
+}
+input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    vertical-align: baseline;
+    margin-right: 4px;
+}
+form > p {
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    font-family:"Noto Serif JP", serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 20px 25px;
+    text-align: center;
+}
+.submitBtn {
+    position: fixed; 
+    bottom: 50px; 
+    height: 46px;
+    width: 46px;
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 15px;
+}
+
+
+/*ハンバーガーメニューのｃｓｓ*/
+    .gMenu {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+/* メニューアイコンを画面右上に固定しています */
+.gMenu .menu-icon {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  padding-top: 5px;
+  height: 12px;
+}
+/* メニューアイコン（三本線）の真ん中の線です */
+.gMenu .menu-icon .navicon {
+  background: #b71B26; /* 色は自由に変更可能です */
+  display: block;
+  height: 2px; /* 太さ */
+  width: 31px; /* 長さ */
+  position: relative;
+  transition: background .4s ease-out; /* 形が変わる時のアニメーション */
+}
+/* メニューアイコン（三本線）の上と下の線を疑似要素で追加 */
+.gMenu .menu-icon .navicon::before,
+.gMenu .menu-icon .navicon::after {
+  background: #b71B26; /* 色は自由に変更可能です */
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .4s ease-out; /* 形が変わる時のアニメーション */
+  width: 100%;
+}
+.gMenu .menu-icon .navicon::before {top: 10px;} /* 位置を上にずらしています */
+.gMenu .menu-icon .navicon::after {top: -10px;} /* 位置を下にずらしています */
+/* 表示されるメニューです */
+.gMenu .menu {
+  background-color: rgba(255,255,255,0.9);
+  overflow: hidden;
+  max-height: 0; /* ★最初は高さを0にして非表示状態に */
+  transition: max-height .6s; /* 表示されるときのアニメーション */
+  text-align: center;
+}
+
+/* メニュー部分のデザインです */
+.gMenu .menu li:first-of-type {
+  padding-top: 50px;
+}
+.gMenu .menu li a {
+  display: block;
+  padding: 24px 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.gMenu .menu li a:hover {
+  background-color: #f4f4f4;
+}
+/* チェックボックスは常に非表示です */
+.gMenu .menu-btn {
+  display: none;
+}
+/* ▼▼▼以下はチェックボックスがONの時の状態です▼▼▼ */
+.gMenu .menu-btn:checked ~ .menu {
+  max-height: 500px; /* ★チェックボックスがオンの時高さを338pxにして表示させます */
+  transition: max-height .6s;
+}
+/* メニューボタンの中央の線を非表示に */
+.gMenu .menu-btn:checked ~ .menu-icon .navicon {background: transparent;}
+
+/* メニューボタンの上下の線を45度傾けて✕印を作ります */
+.gMenu .menu-btn:checked ~ .menu-icon .navicon::before {transform: rotate(-45deg);top: 0;}
+.gMenu .menu-btn:checked ~ .menu-icon .navicon::after {transform: rotate(45deg);top: 0;}
+
+}
