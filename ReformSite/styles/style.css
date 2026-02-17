@@ -40,6 +40,9 @@ footer {
     object-fit: cover;
     object-position:  50% 55%;
 }
+.Spimage {
+    display: none;
+}
 
 h2 {
     color: #333;
@@ -226,13 +229,35 @@ h5 {
     background-color: #b71B26;
     color: #fff;
     border-radius: 15%;
-    width: 38px;
     margin-left: 5px;
-    margin-right: 5px;
-    padding: 2px 5px;
     text-align: center;
 }
+/*お問い合わせ内容の隙間*/
+.denger1 {
+    margin-left: 40px;
+    text-align: center;
+}
+/*入力欄横の文字*/
 .form {
+    font-family:Noto sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: end;
+    letter-spacing: 0.1em;
+    line-height: 20px;
+    margin: 20px;
+    width: 450px;
+}
+
+.formGroup label {
+    font-family: Noto sans-serif; 
+    font-size: 20px; 
+    /* 「資料請求」と「ご相談」の間の隙間*/
+    margin-right: 20px; 
+    cursor: pointer;    
+}
+/*入力確認ボタンの文字*/
+.form2 {
     font-family:Noto sans-serif;
     font-weight: bold;
     font-size: 20px;
@@ -241,37 +266,69 @@ h5 {
     line-height: 20px;
     margin: 20px;
 }
+.form-Postcode {
+    font-size: 20px;
+    font-family:Noto sans-serif;
+}
+
+.formGroup {
+    display: flex;
+    align-items: center;
+}
+.formGroup1 {
+    display: flex;
+}
+
+.inputArea {
+    flex: 1;
+}
 .f {
-    
     margin: auto;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.5);
     
 }
+
 input[type="text"], 
-input[type=email],
-input[type=tel] {
-    border: 1px solid #fff;
-    background-color: #fff;
-    padding: 4px;
-}
-.form .post_code {
-  max-width: 30%;
-  margin-bottom: 10px; 
-}
-.form input[name="adress"] {
-  width: 50%;
-  text-align: center; 
-}
+input[type="tel"], 
+input[type="email"], 
 textarea {
     border: 1px solid #fff;
     background-color: #fff;
-    width: 70%;
-    margin-top: 5px;
-    padding: 4px 8px;
-    height: 250px;
-    margin-bottom: 30px;
+    padding: 8px;
+    box-sizing: border-box;
 }
+
+
+input[type="text"], 
+input[type="tel"] {
+    width: 50%; 
+    height: 45px;
+    margin: 20px 0;
+}
+
+
+input.PostCode {
+    width: 40% ; 
+    height: 45px;
+}
+
+input.Address,
+input[type="email"],
+textarea {
+    width: 100%;
+}
+
+textarea {
+    height: 250px;
+}
+
+
+
+
+
+
+
 input[type="radio"] {
     width: 16px;
     height: 16px;
@@ -313,26 +370,23 @@ input[type="submit"] {
 
 
 @media screen and (max-width:768px) {
-    .meetingphoto {
-    width: auto;
-    height: auto;
-    overflow: hidden;
-}
+    .meetingphoto,
     .meetingphoto img {
-        height: 480px;
-        width: auto;
-        overflow: hidden;
-        object-fit: cover;
-        object-position: 5% 9%;
+    display: none;
+}
+    .Spimage {
+        display: block;
+        width: 100%;
+        height: auto;
+        
     }
+    
     h1 img {
         width: 240px;
         height: 20px;
     }
     header {
         display: block;
-        /*width: 375px;
-        height: 52px*/
     }
     h2 {
         color: #333;
@@ -497,7 +551,6 @@ header nav ul {
 
 .contact {
     background-color:rgba(34, 62, 105, 0.15);
-    
     color: #333;
     max-width: 100%;
     padding: 0;
@@ -527,8 +580,10 @@ header nav ul {
 }
 .f {
     background:none;
+    padding: 0;
     
 }
+
 input[type="text"], 
 input[type=email],
 input[type=tel] {
@@ -538,8 +593,16 @@ input[type=tel] {
     display: block;
     width: 100%;
 }
+.inputArea {
+    width: 100%;
+    display: block;
+}
 .post_code {
     max-width: 35%;
+}
+.form input[name="adress"] {
+  width: 100%;
+  text-align: center; 
 }
 textarea {
     border: 1px solid #fff;
@@ -557,10 +620,83 @@ input[type="radio"] {
     vertical-align: baseline;
     margin-right: 4px;
 }
+
+.radioGroup {
+    display: flex;
+    justify-content: center; 
+    gap: 20px;              
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.formGroup label {
+    font-size: 16px;
+}
 form > p {
     line-height: 1.4;
     margin-bottom: 20px;
 }
+
+    .formGroup, 
+    .formGroup1 {
+        flex-direction: column;  
+        width: 100%; 
+        align-items: center;      
+    }
+    .form {
+        width: 100%;
+        text-align: center; 
+        margin: 10px 0;
+    }
+
+    .inputArea {
+        width: 100%; 
+        display: block;
+    }
+
+    
+    input[type="text"], 
+    input[type="tel"], 
+    input[type="email"], 
+    input.PostCode, 
+    input.Address, 
+    textarea {
+        width: 100% ; 
+        display: block;
+        margin: 0 auto 20px auto; 
+    }
+
+    
+    .contact {
+        padding: 40px 10px; 
+    }
+
+    .denger1 {
+        margin-left: 10px;
+    }
+
+   
+    .inputArea {
+        display: flex;         
+        align-items: center;   
+        justify-content: flex-start; 
+        width: 100%;
+        gap: 10px;            
+    }
+    /
+    .form-Postcode {
+        font-size: 14px;
+        flex-shrink: 0;      
+    }
+
+    
+    input.PostCode {
+        width: 60% ; 
+        margin: 0 ;   
+        
+    }
+
+
 input[type="submit"] {
     background-color: #333;
     color: #fff;
@@ -589,6 +725,10 @@ input[type="submit"] {
   top: 0;
   width: 100%;
   z-index: 99;
+}
+
+.gMenu ul {
+    display: block;
 }
 /* メニューアイコンを画面右上に固定しています */
 .gMenu .menu-icon {
