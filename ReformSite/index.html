@@ -40,7 +40,9 @@
         <div class="all">
         <div class="meetingphoto">
             <img src="images/hero3.png" alt="ダイニングテーブル写真">
+            
         </div>
+        <img src="images/SPhero.png" class="Spimage" alt="sp用メイン画像">
 
         <section id="CONCEPTarea">
             
@@ -137,30 +139,72 @@
                     <h3><span class="sub5">―――お問い合わせ―――</span></h3>
 
                         <div class="f">
-                        <form action="" method="">
-                            <p class="form">お問い合わせ種別<span class="denger">必須</span>
-                                <label><input type="radio" name="attend" value="資料請求" checked="checked">資料請求</label>
-                                <label><input type="radio" name="attend" value="ご相談">ご相談</label></p>
+                            <form action="" method="">
+
+                                <div class="formGroup">
+                                    <p class="form">お問い合わせ種別<span class="denger">必須</span></p>
+                                    <div class="radioGroup">
+                                        <label><input type="radio" name="attend" value="資料請求" checked="checked">資料請求</label>
+                                        <label><input type="radio" name="attend" value="ご相談">ご相談</label>
+                                    </div>
+                                </div>
+                                    
                                 
-                            <p class="form">お名前<span class="denger">必須</span><input type="text" name="user_name" placeholder="例）山田太郎" required></p>
+                                <div class="formGroup">
+                                    <p class="form">お名前<span class="denger">必須</span></p>
+                                        <div class="inputArea"><input type="text" name="user_name" placeholder="例）山田太郎" required>
+                                        </div>
+                                </div>    
 
-                            <p class="form">フリガナ<span class="denger">必須</span><input type="text" name="user_kana"placeholder="例）ヤマダタロウ" required></p>
+                                <div class="formGroup">
+                                     <p class="form">フリガナ<span class="denger">必須</span></p>
+                                        <div class="inputArea"><input type="text" name="user_kana"placeholder="例）ヤマダタロウ" required>
+                                        </div>
+                                </div>
+                               
 
-                            <p class="form">電話番号<span class="denger">必須</span><input type="tel" name="number" placeholder="例）012-3456-7890" required></p>
+                                <div class="formGroup">
+                                    <p class="form">電話番号<span class="denger">必須</span></p>
+                                    <div class="inputArea"><input type="tel" name="number" placeholder="例）012-3456-7890" required>
+                                    </div>
+                                </div>
 
-                            <p class="form">住所<span class="denger">必須</span>〒<input type="text" name="post_code" class="post_code" required><br>
-                                                <input type="text" name="adress"required></p>
+                                <div class="formGroup">
+                                    <p class="form">住所<span class="denger">必須</span></p>
+                                    <div class="inputArea"><span class="form-Postcode">〒</span>
+                                    <input type="text" name="post_code" class="PostCode" required></div>
 
-                            <p class="form">メールアドレス<span class="denger">必須</span><input type="email" name="user_mail" placeholder="例）example@mail.com" required></p>
+                                </div>
 
-                            <p class="form">メールアドレス（確認用）<span class="denger">必須</span><input type="email" name="user_con_firm" placeholder="例）example@mail.com" required></p>
+                                <div class="formGroup">
+                                    <p class="form"></p>
+                                    <div class="inputArea"><input type="text" name="adress" class="Address" required></div>
 
-                            <p class="form">お問い合わせ内容<textarea name="message" placeholder="ご質問などをご記入ください" required></textarea></p>
-                            
+                                </div>
 
-                            <p class="form"><input type="submit" value="入力内容を確認する▶"></p>
-                            
-                        </form>
+                                <div class="formGroup">
+                                    <p class="form">メールアドレス<span class="denger">必須</span></p>
+                                    <div class="inputArea"><input type="email" name="user_mail" placeholder="例）example@mail.com" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="formGroup">
+                                    <p class="form">メールアドレス（確認用）<span class="denger">必須</span></p>
+                                    <div class="inputArea"><input type="email" name="user_con_firm" placeholder="例）example@mail.com" required>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="formGroup1">
+                                    <p class="form">お問い合わせ内容<span class="denger1"></span></p>
+                                    <div class="inputArea"><textarea name="message" placeholder="ご質問などをご記入ください" required></textarea>
+                                    </div>
+                                </div>
+                                
+                                <p class="form2"><input type="submit" value="入力内容を確認する▶"></p>
+
+                                
+                            </form>
                         </div>
             </div>
         </section>
