@@ -1,0 +1,3482 @@
+@charset "utf-8";
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* ローディング画面*/
+#loadingView {
+    position: fixed;
+    inset: 0;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 3.0s ease-out, visibility 3.0s;
+}
+
+/* 読み込み完了後（JSでこのクラスが追加される） */
+#loadingView.isLoaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* 画像のスタイル */
+.loadingImage {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    animation: pulseAnimation 3.0s ease-in-out infinite;
+}
+
+/* 拡大縮小のアニメーション */
+@keyframes pulseAnimation {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+/*シーサーのポップアップ*/
+.shisa-popup {
+    position: fixed;
+    bottom: -100px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10000;
+    transition: bottom 0.5s ease-out, opacity 0.5s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* クラスがついた時（リンククリック時） */
+.shisa-popup.is-active {
+    bottom: 1px;
+    opacity: 1;
+}
+
+.shisa-popup img {
+    width: 150px; /* サイズはお好みで */
+    height: auto;
+}
+
+
+
+
+/*トップページヘッダー部分*/
+/* ドロワー部分
+ボタンの初期スタイルをリセット */
+.menuLogo2, #js-close {
+    background: none; 
+    border: none;          
+    padding: 0 10px;           
+    cursor: pointer;     
+    outline: none;       
+    appearance: none;      
+}
+
+/* 画像がボタンからはみ出ないようにする */
+.menuLogo2 img, #js-close img {
+    display: block;
+    width: 100%; 
+    height: auto;
+}
+/* ドロワーの基本設定 */
+.Drawer {
+    position: fixed;
+    left: 0;
+    top: -100%;
+    width: 100%;
+    height: auto; 
+    background: #fff;
+    z-index: 9999;
+    transition: top 0.4s ease;
+    padding: 50px;
+}
+.DrawerLogo {
+    display: flex;
+    justify-content: space-between;
+}
+.DrawerLogo img {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* メニューが開いた時用のクラス */
+.Drawer.is-active {
+    top: 0;
+}
+
+/* リストのポチ（黒丸）を消す */
+.Drawer nav ul {
+    list-style: none;
+    padding: 0;
+}
+.Drawer nav  {
+    margin: 5% auto;
+}
+.Drawer nav ul li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 15px 0;
+    border-bottom: 1px solid #303030;
+}
+.DrawerSnsIcon {
+    display: block;
+    margin: auto;
+}
+.drawer-link {
+    color: #fb6868; 
+}
+.link-arrow {
+    filter: invert(56%) sepia(21%) saturate(2971%) hue-rotate(314deg) brightness(101%) contrast(97%);
+}
+.drawer-link2 {
+    color: #a1a1a1; 
+}
+.link-arrow2 {
+filter: brightness(0) saturate(100%) invert(73%) sepia(0%) saturate(0%) hue-rotate(174deg) brightness(91%) contrast(92%);
+}
+
+
+
+
+/*トップページメイン画像スライダー枠組み*/
+.MainVisualInner {
+    position: relative;
+    width: 100%;
+    height: 633px; /* 画像の高さに合わせて調整 */
+    overflow: hidden;
+}
+
+/* 各スライド（3つの Main-Image）を重ねる設定 */
+.MainImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;    /* 内部の left と right を横並びにする */
+    opacity: 0;       /* 初期状態は非表示 */
+    transition: opacity 1.5s ease-in-out; /* フェードの速度 */
+    pointer-events: none; /* 表示されていない時はクリックを無効化 */
+}
+
+/* JavaScriptなどでこのクラスが付与されたスライドだけが表示される */
+.MainImage.IsActive {
+    opacity: 1;
+    z-index: 1;
+    pointer-events: auto; /* 表示されたらクリックを有効化 */
+}
+/* 左右の画像エリアと中央の比率設定 */
+.MainImage1left {
+    flex: 6; /* 全体の7割 */
+}
+
+.MainImageCenter {
+    flex: 1; /* 文字のための空間 */
+    position: relative;
+}
+
+.MainImage1right {
+    flex: 3; /* 全体の2割 */
+    position: relative;
+}
+/*左側画像の設定*/
+.MainImage1left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 枠いっぱいに画像をフィットさせる */
+    display: block;
+}
+/*右側の画像の設定*/
+.MainImage1right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: 0% 50%;
+}
+
+/* 左下のキャプション（広がる青の世界 など） */
+.MainImage1left p {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #ffffff;
+    padding: 5px 10px;
+    font-size: 36px;
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.5;
+}
+
+.FixedCatchCopy {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20; /* 画像スライド（z-index: 1）よりも確実に大きい数字にする */
+    pointer-events: none;
+}
+
+/* 固定キャッチコピー：五感で感じる */
+.FixedCatchCopy1 {
+    position: absolute;
+    top: 55%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* 最前面に固定 */
+    pointer-events: none;
+    width: 100px;
+    height: 492px;
+    border: 5px solid #ffffff;
+    background-color: #ffffff;
+}
+
+
+/* 固定キャッチコピー：沖縄の味わい */
+.FixedCatchCopy2 {
+    position: absolute;
+    top: 65%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* 最前面に固定 */
+    pointer-events: none; /* 下にあるスライドの操作を邪魔しない */
+    width: 100px;
+    height: 492px;
+    border: 5px solid #ffffff;
+    background-color: #ffffff;
+}
+
+.FixedCatchCopy1 p,
+.FixedCatchCopy2 p {
+    writing-mode: vertical-rl; /* 縦書きにする場合 */
+    font-family: 'Shippori Mincho', serif;
+    font-size: 60px;
+    line-height: 1.2;
+    letter-spacing: 0.3em;
+    color: #303030;
+}
+
+/*OverView部分のタイトル*/
+.WhatsNewTitle p {
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    line-height: 2;
+    border-bottom: 1px solid #a1a1a1;
+    padding-bottom: 1%;
+}
+/*セクションの余白*/
+#WhatsNew {
+    margin: 10%;
+}
+/*西暦月日と文章の横並び*/
+.WhatsContents {
+    display: flex;
+    gap: 5%;
+}
+/*文章のフォント*/
+.WhatsNew1,
+.WhatsNew2 {
+    font-size: 14px;
+    padding: 20px 0;
+}
+.Line {
+    color: #a1a1a1;
+}
+#OverView {
+    margin: 10% 0 40% 0;
+}
+.OverViewImage {
+    position: relative;
+}
+/*overviewのテキストボックス*/
+.OverViewText {
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    width: 70%;
+    height: 60%;
+    background-color: #ffffff;
+    padding: 5%;
+    
+}
+/*01 OVERVIEW タイトル設定*/
+.OverviewTitle {
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    line-height: 2;
+
+}
+/*きっと見つかる、私の居場所の設定*/
+.OverViewText1 {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.2;
+    font-family: 'Shippori Mincho', serif;
+    margin: 8% 0 5% 0; 
+}
+/*線の装飾*/
+.Line2 {
+    margin-top: 2%;
+    margin-bottom: 4%;
+    color: #a1a1a1;
+}
+/*ゆったりと～の文字*/
+.OverViewText2 {
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    margin-bottom: 8%;
+    line-height: 2;
+    letter-spacing: 1.5px;
+    color: #505050;
+}
+/*その下の線*/
+.Line3 {
+    margin-top: 2%;
+    margin-bottom: 4%;
+    color: #a1a1a1;
+}
+/*TOPアクティビティ部分*/
+.activitySection {
+    width: 100%;
+    padding-bottom: 200px;
+}
+/* グレーの背景ボックス */
+.activityBgBox {
+    position: relative;
+    width: 85%; /* 左側に寄せるため少し小さく */
+    height: 900px; /* デザインに合わせて調整 */
+    background-color: #f0f0f0;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-bottom: 250px; /* 次の要素との間に距離を作る */
+}
+
+/* 画像の共通設定 */
+.activityBgBox img {
+    position: absolute;
+    object-fit: cover;
+}
+
+/* 中央の大きな画像 */
+.activityImgMain {
+    width: 500px;
+    height: 500px;
+    top: 200px;
+    left: 15%;
+    z-index: 2;
+}
+
+/* 右上の画像（パラセーリング） */
+.activityImgSubTop {
+    top: -100px;
+    left: 87%;
+}
+
+/* 右中央の画像（ボート） */
+.activityImgSubBottom {
+    top: 100px;
+    right: 22%;
+}
+
+/* 縦書きの「遊ぶ」 */
+.activityVerticalText {
+    position: absolute;
+    left: 9%;
+    top: 37%;
+    writing-mode: vertical-rl;
+    letter-spacing: 1.0em;
+    font-size: 100px;
+    color: #d3d3d3;
+    font-family: 'Shippori Mincho', serif;
+    z-index: 3;
+}
+
+/* テキスト部分 */
+.activityTextContent {
+    position: absolute;
+    top: 80%;
+    width: 70%;
+    margin: 50px auto 0 0; /* 左側に寄せる */
+    padding: 3%;
+    background-color: #ffffff;
+}
+
+.activityCatchCopy {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 32px;
+    line-height: 1.5;
+    margin: 20px 0;
+}
+.activityDescription {
+    font-size: 16px;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 8%;
+    letter-spacing: 0.1em;
+    color: #303030;
+}
+
+/*花火の画像入れる*/
+/* 花火の模様（背景ボックスから左上にはみ出させる） */
+.activityPattern {
+    top: -60px;  /* 上にはみ出す量 */
+    left: -5%; /* 左にはみ出す量 */
+    width: 300px; /* デザインに合わせて調整 */
+    height: auto;
+    z-index: 1;   /* 他の画像（z-index: 2）より後ろにする */
+}
+.activityTitle {
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    line-height: 2;
+}
+.activityLine {
+    color: #a1a1a1;
+    margin-top: 2%;
+}
+
+/*「詳しく見る」テキストとボタン*/
+.activityMoreBtn {
+   font-size: 16px;
+    display: inline-flex; /* inline-flexにすると、文字の長さに合わせてくれます */
+    align-items: center;  /* 上下中央揃え */
+    gap: 15px;            /* 文字と画像の間の距離 */
+    text-decoration: none;
+    color: #333;
+}
+
+/* 中にある矢印画像の設定 */
+.activityMoreBtn img {
+    /* 重要：.activityBgBox img { position: absolute; } が効いてしまっているので上書き */
+    position: static; 
+    width: 30px;  /* デザインに合わせたサイズ */
+    height: auto;
+    display: block;
+}
+/*「詳しく見る」のホバー時の色変更*/
+.activityMoreBtn:hover {
+    color: #fb6868;
+    cursor: pointer;
+}
+/*矢印のホバー時の色変更*/
+.activityMoreBtn:hover img {
+    filter: invert(56%) sepia(43%) saturate(3025%) hue-rotate(320deg) brightness(101%) contrast(102%);
+
+}
+
+
+
+/*TOPページ食べる部分のセクション編集*/
+/* 食事セクション全体*/
+.foodSection {
+    width: 100%;
+    padding-bottom: 300px;
+    position: relative;
+}
+
+/* グレーの背景ボックス */
+.foodBgBox {
+    position: relative;
+    width: 93%;
+    height: 1200px; 
+    background-color: #f0f0f0;
+    margin-top: 150px;
+    margin-left: 0;
+    margin-right: 3%;
+}
+
+/* 画像全体をまとめるコンテナ */
+.foodImageContainer {
+    position: absolute;
+    top: -60px;
+    left: -150px; 
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
+}
+
+/* メイン画像 */
+.foodImgMain {
+    width: 865px;
+    height: 539px;
+    object-fit: cover;
+    display: block;
+    margin-left: 25%;
+    transition: opacity 0.5s;
+}
+
+/* サムネイル4枚を横並びにする枠 */
+.foodThumbnailWrapper {
+    display: flex;
+    gap: 62px;
+    margin-left: 25%;
+}
+
+/* サムネイル共通設定 */
+.foodImgSub {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+}
+
+/* 縦書きの「食べる」 */
+.foodVerticalText {
+    position: absolute;
+    right: -5%;
+    top: -6%;
+    writing-mode: vertical-rl;
+    font-size: 100px;
+    letter-spacing: 0.5em;
+    color: #d3d3d3;
+    font-family: 'Shippori Mincho', serif;
+}
+
+/* 白いテキストボックス */
+.foodTextContent {
+    position: absolute;
+    bottom: -10%;
+    left: 35%;
+    width: 70%;
+    padding: 60px;
+    background-color: #ffffff;
+    z-index: 5;
+}
+
+/* ハイビスカス */
+.foodPattern {
+    position: absolute;
+    right: -7%;
+    bottom: 25%;
+    z-index: 1;
+}
+/*03FOODSの文字*/
+.foodTitle {
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    line-height: 2;
+}
+/*線の装飾*/
+.foodLine {
+    color: #a1a1a1;
+    margin-top: 2%;
+}
+/*「ユニークな～」の部分*/
+.foodCatchCopy {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 32px;
+    line-height: 1.5;
+    margin: 20px 0;
+}
+/*フード部分の説明*/
+.foodDescription {
+    font-size: 14px;
+    line-height: 2;
+    font-family: "Noto Sans JP", sans-serif;
+    margin-bottom: 8%;
+    letter-spacing: 1.5px;
+    color: #333;
+}
+
+/*「詳しく見る」テキストとボタン*/
+.foodMoreBtn {
+   font-size: 16px;
+    display: inline-flex; /* inline-flexにすると、文字の長さに合わせてくれます */
+    align-items: center;  /* 上下中央揃え */
+    gap: 15px;            /* 文字と画像の間の距離 */
+    text-decoration: none;
+    color: #333;
+}
+
+/* 中にある矢印画像の設定 */
+.foodMoreBtn img {
+    position: static; 
+    width: 30px;  /* デザインに合わせたサイズ */
+    height: auto;
+    display: block;
+}
+/*「詳しく見る」のホバー時の色変更*/
+.foodMoreBtn:hover {
+    color: #fb6868;
+    cursor: pointer;
+}
+/*矢印のホバー時の色変更*/
+.foodMoreBtn:hover img {
+    filter: invert(56%) sepia(43%) saturate(3025%) hue-rotate(320deg) brightness(101%) contrast(102%);
+
+}
+
+/*ホテル部分*/
+/* セクション全体：ここにはみ出しを隠す設定を入れる */
+.hotelSection {
+    width: 100%;
+    position: relative;
+    overflow: hidden; /* これで画面外にはみ出した画像をカットします */
+}
+
+/* グレーの背景ボックス */
+.hotelBgBox {
+    position: relative;
+    width: 93%;
+    height: 1000px; 
+    background-color: #f0f0f0;
+    margin-top: 150px;
+    margin-left: auto;
+    margin-bottom: 15%;
+}
+
+/* 画像コンテナ：画面幅より大きくし、中央に配置する */
+.hotelImageContainer {
+    display: flex;
+    gap: 80px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    /* 画像4枚分を確保（1枚を窓の33.33%にする場合） */
+    width: calc(33.33% * 7); 
+    transform: translateX(-50%); /* 0枚目の位置 */
+    transition: transform 0.8s ease-in-out;
+}
+
+/* 画像のスタイル */
+.hotelImgMain {
+    width: 30%; 
+    height: 500px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* 縦書きの「泊まる」 */
+.hotelVerticalText {
+    position: absolute;
+    right: 5%;
+    top: -6%;
+    writing-mode: vertical-rl;
+    font-size: 100px;
+    letter-spacing: 0.2em;
+    color: #d3d3d3;
+    font-family: 'Shippori Mincho', serif;
+    z-index: 10;
+}
+/*ホテルの説明部分の装飾*/
+.hotelTextContent {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    width: 60%;
+    padding: 30px;
+    background-color: #ffffff;
+    z-index: 5;
+}
+
+/*04HOTELSの文字*/
+.hotelTitle {
+    margin-top: 5%;
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    line-height: 2;
+}
+/*線の装飾*/
+.hotelLine {
+    color: #a1a1a1;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+/*「ゆったりと～」の部分*/
+.hotelCatchCopy {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 32px;
+    line-height: 1.5;
+    margin: 20px 0;
+}
+/*ホテル部分の説明*/
+.hotelDescription {
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    margin-bottom: 8%;
+    letter-spacing: 1.5px;
+    line-height: 2;
+    color: #505050;
+}
+
+/*「詳しく見る」テキストとボタン*/
+.hotelMoreBtn {
+   font-size: 16px;
+    display: inline-flex; /* inline-flexにすると、文字の長さに合わせてくれます */
+    align-items: center;  /* 上下中央揃え */
+    gap: 15px;            /* 文字と画像の間の距離 */
+    text-decoration: none;
+    color: #333;
+}
+
+/* 中にある矢印画像の設定 */
+.hotelMoreBtn img {
+    /* 重要：.activityBgBox img { position: absolute; } が効いてしまっているので上書き */
+    position: static; 
+    width: 30px;  /* デザインに合わせたサイズ */
+    height: auto;
+    display: block;
+}
+/*「詳しく見る」のホバー時の色変更*/
+.hotelMoreBtn:hover {
+    color: #fb6868;
+    cursor: pointer;
+}
+/*矢印のホバー時の色変更*/
+.hotelMoreBtn:hover img {
+    filter: invert(56%) sepia(43%) saturate(3025%) hue-rotate(320deg) brightness(101%) contrast(102%);
+
+}
+
+
+
+
+
+/*「五感を感じる～」のコンセプト部分*/
+.conceptArea {
+    margin: 10% 0 15% 5%;
+}
+.conceptArea p {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.5;
+
+}
+.contactSection {
+    padding: 90px 40px; 
+    max-width: 100%;
+}
+
+.contactTitle,
+.confirmTitle {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    font-family: 'Shippori Mincho', serif;
+}
+
+/* 親要素 */
+.conceptSection {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* はみ出した画像を隠す */
+}
+
+/* スライダー本体 */
+.SlideContainer {
+    display: flex;
+    flex-wrap: nowrap !important; /* 絶対に折り返さない */
+    position: relative;
+    width: 233.31%; /* (100% / 3枚表示) * 7枚分 = 約233.31% */
+    left: 50%;
+    /* 最初は「Index 2」が中央に来るように配置 */
+    transform: translateX(calc(-50% - (100% / 7 * 2)));
+}
+
+.slideImg {
+    height: 293px; /* デザインに合わせる */
+    object-fit: cover;
+    flex-shrink: 0;
+    padding: 0 40px; /* 画像同士の隙間（スクショの余白感） */
+    box-sizing: border-box;
+}
+
+
+/* 疑似要素をセクション全体に対してつける */
+.conceptSection::after {
+    content: "";
+    position: absolute;   
+    top: 27%; 
+    left: 17%;
+    width: 904px;
+    height: 393px;
+    border: 1px solid #303030;  
+    z-index: 10; /* 画像より上に表示 */
+    pointer-events: none; /* 下にある画像をクリックできるようにする */
+}
+
+.conceptTextContent {
+    margin: 10% 5%;
+}
+.conceptTitle {
+    margin-top: 5%;
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    line-height: 2;
+}
+/*線の装飾*/
+.Line {
+    color: #a1a1a1;
+}
+/*「トリップジャパンは～」の部分*/
+.conceptCatchCopy {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 32px;
+    line-height: 1.5;
+    margin: 20px 0;
+    padding: 8% 20% 8% 8%;
+}
+.conceptCatchCopy2 {
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    margin: 20px 0;
+}
+.underLine {
+    border-bottom: 1px solid #333;
+}
+.underLine:hover {
+    color: #505050;
+}
+
+
+
+
+/*お問い合わせ部分*/
+/* 各入力行のレイアウト */
+.formGroup {
+    display: flex;
+    align-items: center; /* 縦方向の中央揃え */
+    margin-bottom: 5%;
+    margin-left: 12%;
+}
+
+.formGroup1 {
+    display: flex;
+    align-items: flex-start; /* テキストエリアは上揃え */
+    margin-bottom: 7%;
+    margin-left: 12%;
+
+}
+
+/* 項目ラベル（貴社名、お名前など） */
+.form {
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 14px;
+    text-align: left;
+    line-height: 1.4em;
+    letter-spacing: 0.1em;
+    width: 350px; /* お好みの幅に調整 */
+    margin-right: 30px;
+}
+
+/* [必須]ラベル */
+.danger {
+    font-size: 12px;
+    background-color: #fb6868;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+/* 入力欄の幅調整 */
+.inputArea {
+    flex: 1;
+}
+
+input[type="text"], 
+input[type="tel"], 
+input[type="email"], 
+textarea {
+    width: 100%;
+    border: 1px solid #eee;
+    background-color: #EEE;
+    border-radius: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+    max-width: 500px;
+}
+/*入力確認画面の入力欄の背景カラー*/
+.formColor {
+    width: 100%;
+    border: 1px solid #eee;
+    background-color: #EEE;
+    border-radius: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+    max-width: 500px;
+}
+
+
+
+textarea {
+    height: 200px;
+}
+
+/* 同意文とボタン */
+.confirm {
+    font-family: "Noto Sans JP", sans-serif;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    margin-top: 30px;
+}
+.underLine {
+    border-bottom: 1px solid #303030;
+}
+
+.form2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+input[type="submit"] {
+    background-color: #fb6868;
+    font-family: "Noto Sans JP", sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 60px;
+    cursor: pointer;
+    border-radius: 9999px ; 
+    transition: 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #fff;
+    color: #fb6868;
+}
+/*入力欄エラーメッセージ表示*/
+.error{
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    color:#d33;
+}
+.form3,
+.form4 {
+    text-align: center;
+}
+
+.form3 button {
+    background-color: #fb6868;
+    font-family: "Noto Sans JP", sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 60px;
+    cursor: pointer;
+    border-radius: 9999px ; 
+    transition: 0.3s;
+    margin-bottom: 5%;
+}
+.form4 button {
+    background-color: #2AA6A6;
+    font-family: "Noto Sans JP", sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 60px;
+    cursor: pointer;
+    border-radius: 9999px ; 
+    transition: 0.3s;
+}
+.form3 button:hover {
+    background-color: #fff;
+    color: #fb6868;
+}
+.form4 button:hover {
+    background-color: #fff;
+    color: #2aa6a6;
+}
+.confirmSection {
+    margin-bottom: 10%;
+}
+
+
+/*入力フォーム確認画面表示後の送信後の画面のCSS*/
+.sendText1 {
+    font-size: 32px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 60px 0;
+}
+.sendText2 {
+    font-size: 24px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.5;
+    margin: 5% auto;
+}
+.backBtn {
+    width: 150px;
+    height: 60px;
+    border: 1px solid #505050;
+    background-color: #505050;
+    color: #EEE;
+    font-size: 24px;
+    padding: 15px 0;
+    margin: auto;
+    cursor: pointer;
+    border-radius: 9999px ; 
+    transition: 0.3s;
+    margin: 5% auto;
+}
+#thanksSection {
+    background-image: url(../images/Actitivities_Tab_img3.png);
+    background-size: cover;  
+    background-position: center; 
+    width: 100%;
+    min-height: 500px;   
+    margin: 5% auto;  
+}
+
+/*フッター部分*/
+/*背景画像設定*/
+.FooterAll {
+    background-image: url(../images/Fotter.png);
+    background-repeat: no-repeat;
+    background-size: cover;      
+    background-position: center;
+    position: relative;
+}
+/*フッターメニューのフォント設定*/
+.FooterMenu li a {
+    color: #e0e0e0;
+    font-family: "Oswald", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+/*フッターメニューの位置設定*/
+.FooterMenu {
+    text-align: right;
+    margin-right: 5%;
+    margin-top: 7%;
+}
+/*フッターメニューの位置設定*/
+.Footer {
+    display: flex;
+    justify-content: flex-end;
+    
+}
+/*ロゴとアイコンと注意書きの共通位置*/
+.FooterLogo,
+.FooterIcon {
+    margin: 4%;
+}
+.FooterBottom {
+    margin: 4% 4% 0 4%;
+}
+/*注意書きのフォント設定*/
+.FooterBottom p {
+    font-size: 12px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 1.5;
+    color: #e0e0e0;
+}
+/*トップへ戻るボタンの位置設定*/
+.BackTopBtn {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+}
+/**topページ　ヘッダー*/
+.mainHeader2 {
+    width: 100%;
+    height: 100px;
+    background: #fff;
+    display: flex;
+}
+
+.headerAll {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 高さが低いので中央寄せ */
+    padding: 20px;
+}
+/* 下層ページ */
+/*　ヘッダー部分　*/
+.mainHeader {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    height: 281px; 
+    display: flex;
+}
+
+.headerAll {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+/* パンくずリスト */
+.breadcrumbList {
+    display: flex;
+    list-style: none;
+    padding: 10px 20px;
+    font-size: 10px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    position: relative;
+}
+
+.breadcrumbItem + .breadcrumbItem::before {
+    content: "-";
+    margin: 0 10px;
+    color: #505050;
+}
+
+.breadcrumbItem a {
+    text-decoration: none;
+    color: #505050;
+}
+
+.breadcrumbItem a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbItem span {
+    color: #333;
+    font-weight: bold;
+}
+
+/*下層ページタイトル*/
+.SubTitle {
+    position: absolute;
+    right: 5%;
+    top: 36%;
+}
+h1 {
+    font-size: 72px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #505050;
+}
+h2 {
+    font-size: 18px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #505050;
+    text-align: right;
+}
+
+/* アクティビティ　イントロ部分 */
+#ActivitiesIntro {
+    margin: 10%;
+}
+.IntroBox {
+    display: flex;
+    align-items: flex-end; /* 中身（文章と画像）を下に揃える */
+    gap: 40px;            /* 文章と画像の間隔 */
+    height: 702px;         /* 「外側の箱」の高さを固定するならここ！ */
+}
+.Introduction{
+    position: relative;
+    padding-left: 20px;
+}
+.Introduction::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;              /* これで「タイトルの上〜本文の下」まで繋がります */
+    width: 1px;
+    background-color: #000;
+
+}
+.IntroTitle {
+    font-size: 32px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #303030;
+    margin-bottom: 50px;
+}
+.IntroText {
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    line-height: 2;
+    color: #303030;
+}
+
+/* アクティビティ、タブで切り替えるエリア部分 */
+#activitiesContents {
+    margin-bottom: 15%;
+}
+.tabMenu {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.tabItem {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 400;
+    color: #303030;
+    padding-bottom: 5px;
+    font-family: "Oswald", sans-serif;
+    line-height: 2;
+    font-size: 14px;
+}
+
+.tabItem.active {
+    color: #303030;
+    border-bottom: 1px solid #303030; /* 現在選択中の印 */
+}
+#tabImage {
+    margin-left: 7%;
+    margin-top: 4%;
+}
+#tabContent {
+    position: relative;
+}
+.activitiesContentsBox {
+    position: absolute;
+    bottom: -18%;
+    right: 5%;
+    border: 1px solid #fff;
+    background-color: #fff;
+    width: 600px;
+    height: 300px;
+    padding: 50px;
+}
+.activitiesContentsTitle {
+    font-size: 32px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #303030;
+    margin-bottom: 20px;
+}
+.activitiesContentsText {
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    line-height: 2;
+    color: #505050;
+}
+.activitiesLine {
+    border: 1px solid #505050;
+    margin: 4% auto 6% auto;
+}
+
+/* アクティビティ　
+価格表示 */
+#PriceLocation {
+    position: relative;
+    background-color: #f2f2f2;
+    margin-right: auto;
+    width: 90%;
+    max-width: 1250px;
+    height: 1530px;
+}
+.priceImage {
+    position: absolute;
+    top: -4%;
+    left: 5%;
+    z-index: 1;
+}
+.priceTitle {
+    position: absolute;
+    top: -1%;
+    right: 30%;
+    z-index: 2;
+}
+.priceText {
+    position: absolute;
+    top: 6%;
+    right: -5%;
+    width: 673px;
+    height: 540px;
+    border: 1px solid #303030;
+    z-index: 2;
+    padding: 7% 7% 7% 15%;
+}
+.priceText::after {
+    content: "";
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+.pPrice {
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 2;
+    color: #808080;
+}
+.pContents {
+    font-size: 24px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 2;
+    font-weight: 400;
+    color: #303030;
+    margin-top: 5%;
+}
+.pText {
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 2;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    color: #303030;
+}
+/* コースト料金の余白 */
+.priceAmount {
+    margin-left: 20%;
+}
+
+/* アクティビティ 
+地図エリア */
+.locationImage {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+}
+.locationTitle {
+    position: absolute;
+    top: 60%;
+    right: 23%;
+}
+.locationText {
+    position: absolute;
+    top: 65%;
+    right: -5%;
+    width: 670px;
+    height: 400px;
+    border: 1px solid #303030;
+    z-index: 2;
+    padding: 3% 10%;
+}
+.locationText::after {
+    content: "";
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+
+
+
+/*　フードページ　*/
+/* 親コンテナの設定 */
+.GridLayout {
+  display: grid;
+  grid-template-columns: repeat(8, 100px); /* 800px */
+  grid-template-rows: repeat(10, 100px);    /* 1000px */
+  width: 800px;
+  height: 1000px;
+  margin: 13% auto;
+}
+
+.GridLayout img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 各画像の正確なサイズ配置 */
+.GridItem1 { 
+    grid-column: 1 / 4;
+    grid-row: 1 / 4; 
+}
+.GridItem2  {
+    grid-column: 4 / 6;
+    grid-row: 1 / 3;
+}
+.GridItem3  {
+    grid-column: 6 / 9; 
+    grid-row: 1 / 6; 
+}
+.GridItem4  { 
+    grid-column: 1 / 4; 
+    grid-row: 4 / 6; 
+} 
+.GridItem5  {
+    grid-column: 4 / 6; 
+    grid-row: 3 / 6; 
+}
+.GridItem6  { 
+    grid-column: 1 / 3; 
+    grid-row: 6 / 9; 
+} 
+.GridItem7  { 
+    grid-column: 3 / 5; 
+    grid-row: 6 / 9; 
+}
+.GridItem8  {
+    grid-column: 5 / 9; 
+    grid-row: 6 / 8; 
+} 
+.GridItem9  { 
+    grid-column: 1 / 5; 
+    grid-row: 9 / 11; 
+} 
+.GridItem10 { 
+    grid-column: 5 / 9; 
+    grid-row: 8 / 11; 
+}
+
+.GridTextBox {
+    width: 465px;
+    height: 220px;
+    padding-left: 20px;
+    position: relative;
+    margin-left: 5%;
+}
+.GridTextBox::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;    
+    width: 1px;
+    background-color: #000;
+    z-index: 1;
+}
+.GridTitle {
+    font-size: 32px;
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #303030;
+    margin-bottom: 10%;
+}
+.GridText {
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 2;
+    font-weight: 400;
+    color: #303030;
+}
+
+/* 外枠のボックス設定 */
+.BestFoodsBox {
+  width: 1250px; 
+  margin: 25% auto;
+  border: 1px solid #303030;
+  padding: 60px 30px;
+  position: relative;
+}
+
+/* タイトルを枠線の中央に重ねる */
+.BestFoodsTitle {
+  position: absolute;
+  top: -28px; 
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff; /* 背景と同じ色にして線を消す */
+  padding: 0 30px; /* 左右の余白で線の削れる幅を調整 */
+  text-align: center;
+}
+
+.BestFoodsTitle1 {
+  margin: 0;
+  font-family: 'Shippori Mincho', serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #303030;
+}
+
+.BestFoodsTitle2 {
+    font-size: 14px;
+    font-family: "Oswald", sans-serif;
+    color: #303030;
+    line-height: 2;
+}
+
+.BestFoodsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 70px 60px; 
+  margin: 9% 0;
+}
+
+.BestFoodsContainer {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.BestFoodsContainerImg img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.BestFoodsContainerTitle {
+  width: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+}
+
+.BestFoodsContainerText {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #505050;
+}
+/*フードページ　
+レストラン部分*/
+.RestaurantBox {
+  position: relative;
+  margin-bottom: 20%;
+}
+.RestaurantTitle {
+    position: absolute;
+    top: -4%;
+    left: 42%;
+    text-align: center;
+}
+.RestaurantTitle1 {
+    font-size: 32px;
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #303030;
+}
+.RestaurantTitle2 {
+    font-size: 14px;
+    font-family: "Oswald", sans-serif;
+    color: #303030;
+    line-height: 2;
+    font-weight: 400;
+}
+.RestaurantList {
+  position: absolute;
+  top: 20%;
+  left:30%;
+  width: 550px; 
+}
+
+.RestaurantList p {
+  display: flex;                
+  justify-content: space-between; 
+  align-items: center;         
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+  padding: 10px 0;
+  margin: 0;                    
+}
+
+.RestaurantLine {
+  border-bottom: 1px solid #303030;
+  color: #505050;
+}
+
+/* リンク自体の色や下線を調整 */
+.RestaurantList a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.RestaurantList a img {
+  margin-left: 10px;
+  width: 14px;
+}
+
+/*ホテルページ
+イントロ部分*/
+.HotelIntroBox {
+    position: relative; 
+    width: 1200px;
+    height: 730px;
+    margin-left: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.HotelIntroBox img {
+    position: absolute;
+    right: 0;           
+    top: 0;
+    width: 100%;    
+    height: auto;
+    z-index: 1;
+}
+.HotelIntroTextBox {
+    position: absolute;
+    left: -7%;
+    top: 30%;         
+    transform: translateY(-50%);
+    width: 500px;     
+    padding: 20px;
+    z-index: 2;        
+}
+
+.HotelIntroTextBox::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;    
+    width: 1px;
+    background-color: #000;
+    z-index: 2;
+}
+
+/* テキストのスタイル */
+.HotelIntroTitle p {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #303030;
+  margin-bottom: 10%;
+}
+
+.HotelIntroText p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+}
+.HotelIntroBox2 {
+    position: relative; 
+    height: 1000px;
+    margin: 10% 0;
+}
+.HoteiIntroImage1 {
+    width: 243px;
+    height: 596px;
+    margin-left: auto;
+    z-index: 1;
+}
+.HotelIntroImage1 img {
+    position: absolute;
+    width: 100%;    
+    height: auto;
+    z-index: 1;
+}
+.HoteiIntroImage2 {
+    position: absolute;
+    top: 30%;
+    margin-right: auto;
+}
+.HotelIntroTextBox2 {
+    position: absolute;
+    bottom: 6%;
+    right: 7%;
+    width: 440px;
+    height: 220px;
+    padding-left: 20px;
+}
+.HotelIntroTitle2 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #303030;
+  margin-bottom: 10%;
+}
+.HotelIntroText2 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+}
+.HotelIntroTextBox2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;    
+    width: 1px;
+    background-color: #000;
+    z-index: 2;
+}
+.ViewImage {
+  text-align: right;
+}
+
+.BestHotelName {
+   margin: 10% auto;
+}
+/*沖縄のおすすめ宿　フォント*/
+.BestHotelName1 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #303030;
+  text-align: center;
+}
+/*PICKUP　フォント*/
+.BestHotelName2 {
+    font-size: 14px;
+    font-family: "Oswald", sans-serif;
+    color: #303030;
+    line-height: 2;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*各ホテルの紹介部分*/
+.BestHotelBox1,
+.BestHotelBox2,
+.BestHotelBox3 {
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 40px 100px;
+    gap: 10%;
+}
+.BestHotelBox1 {
+    background-color: #f4f4f4;
+}
+.BestHotelBox2 {
+    background-color: #ececec;
+}
+.BestHotelBox3 {
+    background-color: #e7e7e7;
+}
+
+.HotelTextBox {
+    margin: auto;
+}
+.HotelTitle {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+  margin-bottom: 5%;
+}
+.HotelText {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #505050;
+}
+.HotelLine {
+  border: 1px dotted#000;
+  margin: 3% auto;
+}
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+.drawer-menu { 
+    display: none; 
+  }
+  
+  /* ボタンを押して is-active がついた時だけ表示される */
+  .drawer-menu.is-active {
+    display: block; 
+  }
+  .Drawer nav ul li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 15px 0;
+    border-bottom: 1px solid #303030;
+}
+
+/*トップページメイン画像スライダー枠組み*/
+.MainVisualInner {
+    position: relative;
+    width: 100%;
+    height: 400px; 
+    overflow: hidden;
+}
+
+/* 各スライド（3つの Main-Image）を重ねる設定 */
+.MainImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;    /* 内部の left と right を横並びにする */
+    opacity: 0;       /* 初期状態は非表示 */
+    transition: opacity 1.5s ease-in-out; /* フェードの速度 */
+    pointer-events: none; /* 表示されていない時はクリックを無効化 */
+}
+
+/* JavaScriptなどでこのクラスが付与されたスライドだけが表示される */
+.MainImage.IsActive {
+    opacity: 1;
+    z-index: 1;
+    pointer-events: auto; /* 表示されたらクリックを有効化 */
+}
+/* 左右の画像エリアと中央の比率設定 */
+.MainImage1left {
+    flex: 6; /* 全体の7割 */
+}
+
+.MainImageCenter {
+    flex: 1; /* 文字のための空間 */
+    position: relative;
+}
+
+.MainImage1right {
+    flex: 3; /* 全体の2割 */
+    position: relative;
+}
+/*左側画像の設定*/
+.MainImage1left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 枠いっぱいに画像をフィットさせる */
+    display: block;
+}
+/*右側の画像の設定*/
+.MainImage1right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: 50% 50%;
+}
+
+/* 左下のキャプション（広がる青の世界 など） */
+.MainImage1left p {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    color: #ffffff;
+    padding: 5px 10px;
+    font-size: 24px;
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.5;
+}
+
+.FixedCatchCopy {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20; /* 画像スライド（z-index: 1）よりも確実に大きい数字にする */
+    pointer-events: none;
+}
+
+/* 固定キャッチコピー：五感で感じる */
+.FixedCatchCopy1 {
+    position: absolute;
+    top: 25%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* 最前面に固定 */
+    pointer-events: none;
+    width: 50px;
+    height: 189px;
+    border: none;
+    background-color: #ffffff;
+}
+
+
+/* 固定キャッチコピー：沖縄の味わい */
+.FixedCatchCopy2 {
+    position: absolute;
+    top: 30%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    z-index: 10; /* 最前面に固定 */
+    pointer-events: none; /* 下にあるスライドの操作を邪魔しない */
+    width: 50px;
+    height: 190px;
+    border: none;
+    background-color: #ffffff;
+}
+
+.FixedCatchCopy1 p,
+.FixedCatchCopy2 p {
+    writing-mode: vertical-rl; /* 縦書きにする場合 */
+    font-family: 'Shippori Mincho', serif;
+    font-size: 24px;
+    line-height: 1;
+    color: #303030;
+}
+/*OverView部分のタイトル*/
+.WhatsNewTitle p {
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    border-bottom: 1px solid #a1a1a1;
+    padding-bottom: 1%;
+}
+/*セクションの余白*/
+#WhatsNew {
+    margin: 5% 3%;
+}
+/*西暦月日と文章の横並び*/
+.WhatsContents {
+    display: flex;
+    gap: 5%;
+}
+/*文章のフォント*/
+.WhatsNew1,
+.WhatsNew2 {
+    font-size: 12px;
+    padding: 20px 0;
+    letter-spacing: 1.5px;
+    line-height: 1.5;
+}
+.Line {
+    color: #a1a1a1;
+}
+#OverView {
+    margin: 10% 0 40% 0;
+}
+.OverViewImage {
+    position: relative;
+}
+/*overviewのテキストボックス*/
+.OverViewText {
+    position: static;
+    width: 100%;
+    height: 60%;
+    background-color: #ffffff;
+    padding: 5%;
+    
+}
+/*01 OVERVIEW タイトル設定*/
+.OverviewTitle {
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+
+}
+/*きっと見つかる、私の居場所の設定*/
+.OverViewText1 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    font-family: 'Shippori Mincho', serif;
+    color: #303030;
+    margin: 8% 0 5% 0; 
+}
+/*線の装飾*/
+.Line2 {
+    margin-top: 2%;
+    margin-bottom: 4%;
+    color: #a1a1a1;
+}
+/*ゆったりと～の文字*/
+.OverViewText2 {
+    font-size: 12px;
+    font-family: "Noto Sans JP", sans-serif;
+    margin-bottom: 8%;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    color: #505050;
+}
+/*その下の線*/
+.Line3 {
+    margin-top: 2%;
+    margin-bottom: 4%;
+    color: #a1a1a1;
+}
+/*TOPアクティビティ部分*/
+.activitySection {
+    width: 100%;
+    padding-bottom: 0;
+}
+/* グレーの背景ボックス */
+.activityBgBox {
+    position: relative;
+    width: 100%;
+    height: 570px; /* デザインに合わせて調整 */
+    background-color: #f0f0f0;
+    margin-top: 100px;
+    margin-bottom: 250px; /* 次の要素との間に距離を作る */
+}
+
+/* 画像の共通設定 */
+.activityBgBox img {
+    position: absolute;
+    object-fit: cover;
+}
+
+/* 中央の大きな画像 */
+.activityImgMain {
+    width: 164px;
+    height: 164px;
+    top: 100px;
+    left: 20%;
+    z-index: 2;
+}
+
+/* 右上の画像（パラセーリング） */
+.activityImgSubTop {
+    top: -50px;
+    left: 88%;
+    width: 46px;
+    height: 103px;
+}
+
+/* 右中央の画像（ボート） */
+.activityImgSubBottom {
+    top: 50px;
+    right: 17%;
+    width: 46px;
+    height: 103px;
+}
+
+/* 縦書きの「遊ぶ」 */
+.activityVerticalText {
+    position: absolute;
+    left: 12%;
+    top: 25%;
+    writing-mode: vertical-rl;
+    letter-spacing: 1.0em;
+    font-size: 40px;
+    color: #e0e0e0;
+    font-family: 'Shippori Mincho', serif;
+    z-index: 3;
+}
+
+/* テキスト部分 */
+.activityTextContent {
+    position: absolute;
+    top: 50%;
+    width: 90%;
+    margin: 50px auto 0 0; /* 左側に寄せる */
+    padding: 3%;
+    background-color: #ffffff;
+}
+
+.activityCatchCopy {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 20px 0;
+    color: #303030;
+}
+.activityDescription {
+    font-size: 12px;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 8%;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    color: #505050;
+}
+
+/*花火の画像*/
+.activityPattern {
+    display: none;
+}
+.activityTitle {
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+.activityLine {
+    color: #a1a1a1;
+    margin-top: 2%;
+}
+
+/*「詳しく見る」テキストとボタン*/
+.activityMoreBtn {
+   font-size: 12px;
+   line-height: 1.5;
+   letter-spacing: 1.5px;
+    display: inline-flex; /* inline-flexにすると、文字の長さに合わせてくれます */
+    align-items: center;  /* 上下中央揃え */
+    gap: 15px;            /* 文字と画像の間の距離 */
+    text-decoration: none;
+    color: #000;
+}
+
+/* 中にある矢印画像の設定 */
+.activityMoreBtn img {
+    /* 重要：.activityBgBox img { position: absolute; } が効いてしまっているので上書き */
+    position: static; 
+    width: 30px;  /* デザインに合わせたサイズ */
+    height: auto;
+    display: block;
+}
+/*「詳しく見る」のホバー時の色変更*/
+.activityMoreBtn:hover {
+    color: #fb6868;
+    cursor: pointer;
+}
+/*矢印のホバー時の色変更*/
+.activityMoreBtn:hover img {
+    filter: invert(56%) sepia(43%) saturate(3025%) hue-rotate(320deg) brightness(101%) contrast(102%);
+
+}
+
+
+    /*TOPページ食べる部分のセクション編集*/
+/* 食事セクション全体*/
+.foodSection {
+    width: 100%;
+    padding-bottom: 100px;
+    position: relative;
+}
+
+/* グレーの背景ボックス */
+.foodBgBox {
+    position: relative;
+    width: 93%;
+    height: 500px; 
+    background-color: #f0f0f0;
+    margin-top: 150px;
+    margin-left: 0;
+    margin-right: 3%;
+}
+
+/* 画像全体をまとめるコンテナ */
+.foodImageContainer {
+    position: absolute;
+    top: -60px;
+    left: auto; 
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 40px; 
+}
+
+/* メイン画像 */
+.foodImgMain {
+    width: 243px;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    margin-left: 25%;
+    transition: opacity 0.5s;
+}
+
+/* サムネイル4枚を横並びにする枠 */
+.foodThumbnailWrapper {
+    display: flex;
+    gap: 16px;
+}
+
+/* サムネイル共通設定 */
+.foodImgSub {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+}
+
+/* 縦書きの「食べる」 */
+.foodVerticalText {
+    position: absolute;
+    right: -5%;
+    top: -6%;
+    writing-mode: vertical-rl;
+    font-size: 40px;
+    line-height: 1;
+    color: #e0e0e0;
+    font-family: 'Shippori Mincho', serif;
+}
+
+/* 白いテキストボックス */
+.foodTextContent {
+    position: absolute;
+    bottom: -5%;
+    left: 10%;
+    width: 90%;
+    padding: 5px;
+    background-color: #ffffff;
+    z-index: 5;
+}
+
+/* ハイビスカス */
+.foodPattern {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: -12%;
+    top: 30%;
+    z-index: 1;
+}
+/*03FOODSの文字*/
+.foodTitle {
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+/*線の装飾*/
+.foodLine {
+    color: #a1a1a1;
+    margin-top: 2%;
+}
+/*「ユニークな～」の部分*/
+.foodCatchCopy {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 20px 0;
+    color: #303030;
+}
+/*フード部分の説明*/
+.foodDescription {
+    font-size: 12px;
+    line-height: 1.5;
+    font-family: "Noto Sans JP", sans-serif;
+    margin-bottom: 8%;
+    letter-spacing: 1.5px;
+    color: #505050;
+}
+
+/*「詳しく見る」テキストとボタン*/
+.foodMoreBtn {
+   font-size: 12px;
+   line-height: 1.5;
+   letter-spacing: 1.5;
+    display: inline-flex; /* inline-flexにすると、文字の長さに合わせてくれます */
+    align-items: center;  /* 上下中央揃え */
+    gap: 15px;            /* 文字と画像の間の距離 */
+    text-decoration: none;
+    color: #333;
+}
+
+/* 中にある矢印画像の設定 */
+.foodMoreBtn img {
+    position: static; 
+    width: 30px;  /* デザインに合わせたサイズ */
+    height: auto;
+    display: block;
+}
+/*「詳しく見る」のホバー時の色変更*/
+.foodMoreBtn:hover {
+    color: #fb6868;
+    cursor: pointer;
+}
+/*矢印のホバー時の色変更*/
+.foodMoreBtn:hover img {
+    filter: invert(56%) sepia(43%) saturate(3025%) hue-rotate(320deg) brightness(101%) contrast(102%);
+
+}
+
+/*ホテル部分*/
+.hotelSection {
+    width: 100%;
+    position: relative;
+    overflow: hidden; 
+}
+
+/* グレーの背景ボックス */
+.hotelBgBox {
+    position: relative;
+    width: 93%;
+    height: 500px; 
+    background-color: #f2f2f2;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-bottom: 15%;
+}
+
+/* 画像コンテナ：画面幅より大きくし、中央に配置する */
+.hotelImageContainer {
+    display: flex;
+    gap: 13px;
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: calc(33.33% * 7); 
+    transform: translateX(-50%); /* 0枚目の位置 */
+    transition: transform 0.8s ease-in-out;
+}
+
+/* 画像のスタイル */
+.hotelImgMain {
+    width: 30%; 
+    height: 220px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* 縦書きの「泊まる」 */
+.hotelVerticalText {
+    position: absolute;
+    right: 3%;
+    top: 5%;
+    writing-mode: vertical-rl;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #e0e0e0;
+    font-family: 'Shippori Mincho', serif;
+    z-index: 10;
+}
+/*ホテルの説明部分の装飾*/
+.hotelTextContent {
+    position: absolute;
+    bottom: -5%;
+    left: 0%;
+    width: 90%;
+    padding: 10px;
+    background-color: #ffffff;
+    z-index: 5;
+}
+
+/*04HOTELSの文字*/
+.hotelTitle {
+    margin-top: 5%;
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+/*線の装飾*/
+.hotelLine {
+    color: #a1a1a1;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+/*「ゆったりと～」の部分*/
+.hotelCatchCopy {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 20px 0;
+    color: #303030;
+}
+/*ホテル部分の説明*/
+.hotelDescription {
+    font-size: 12px;
+    font-family: "Noto Sans JP", sans-serif;
+    margin-bottom: 8%;
+    letter-spacing: 1.5px;
+    line-height: 1.5;
+    color: #505050;
+}
+
+/*「詳しく見る」テキストとボタン*/
+.hotelMoreBtn {
+   font-size: 12px;
+   line-height: 1.5;
+   letter-spacing: 1.5px;
+    display: inline-flex; /* inline-flexにすると、文字の長さに合わせてくれます */
+    align-items: center;  /* 上下中央揃え */
+    gap: 15px;            /* 文字と画像の間の距離 */
+    text-decoration: none;
+    color: #000;
+}
+
+/* 中にある矢印画像の設定 */
+.hotelMoreBtn img {
+    /* 重要：.activityBgBox img { position: absolute; } が効いてしまっているので上書き */
+    position: static; 
+    width: 30px;  /* デザインに合わせたサイズ */
+    height: auto;
+    display: block;
+}
+/*「詳しく見る」のホバー時の色変更*/
+.hotelMoreBtn:hover {
+    color: #fb6868;
+    cursor: pointer;
+}
+/*矢印のホバー時の色変更*/
+.hotelMoreBtn:hover img {
+    filter: invert(56%) sepia(43%) saturate(3025%) hue-rotate(320deg) brightness(101%) contrast(102%);
+
+}
+
+
+/*「五感を感じる～」のコンセプト部分*/
+.conceptArea {
+    margin: 10% 0 15% 5%;
+}
+.conceptArea p {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #303030;
+}
+.contactTitle,
+.confirmTitle {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 40px;
+    font-family: 'Shippori Mincho', serif;
+}
+
+/* 親要素 */
+.conceptSection {
+    position: relative;
+    width: 100%;
+    overflow: visible; /* はみ出した画像を隠す */
+}
+
+/* スライダー本体 */
+.SlideContainer {
+    display: flex;
+    flex-wrap: nowrap !important; /* 絶対に折り返さない */
+    position: relative;
+    width: max-content;
+    left: 50%;
+    transform: translateX(calc(-50% - (100% / 7 * 1)));    z-index: 5; /* 画像より上に表示 */
+}
+.slideImg {
+    height: 273px;
+    width: 243px;
+    object-fit: cover;
+    flex-shrink: 0;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+
+/* 疑似要素をセクション全体に対してつける */
+.conceptSection::after {
+    content: "";
+    position: absolute;   
+    top: 8%;
+    left: 4%;
+    width: 350px;
+    height: 350px;
+    border: 1px solid #303030;  
+    z-index: 10; /* 画像より上に表示 */
+    pointer-events: none;/* 下にある画像をクリックできるようにする */
+}
+
+.conceptTextContent {
+    margin: 10% 5%;
+}
+.conceptTitle {
+    margin-top: 15%;
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+/*線の装飾*/
+.Line {
+    color: #a1a1a1;
+}
+/*「トリップジャパンは～」の部分*/
+.conceptCatchCopy {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 20px 0;
+    padding: 0;
+}
+.responsiveBr {
+    display: block;
+  }
+.conceptCatchCopy2 {
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    margin: 20px 0;
+}
+.underLine {
+    border-bottom: 1px solid #333;
+}
+.underLine:hover {
+    color: #505050;
+}
+
+.contactSection {
+    padding: 90px 40px; 
+    max-width: 100%;
+}
+/*お問い合わせ部分*/
+/* 各入力行のレイアウト */
+.formGroup {
+    display: block;
+    margin-bottom: 5%;
+    margin-left: 0;
+}
+
+.formGroup1 {
+    display: block;
+    margin-bottom: 7%;
+    margin-left: 0;
+
+}
+
+/* 項目ラベル（貴社名、お名前など） */
+.form {
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 12px;
+    text-align: left;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    width: 350px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+
+/* [必須]ラベル */
+.danger {
+    font-size: 10px;
+    background-color: #fb6868;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 4px;
+    margin-left: 10px;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+/* 入力欄の幅調整 */
+.inputArea {
+    flex: 1;
+}
+
+input[type="text"], 
+input[type="tel"], 
+input[type="email"], 
+textarea {
+    width: 100%;
+    border: 1px solid #eee;
+    background-color: #EEE;
+    border-radius: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+    max-width: 500px;
+}
+/*入力確認画面の入力欄の背景カラー*/
+.formColor {
+    width: 100%;
+    border: 1px solid #eee;
+    background-color: #EEE;
+    border-radius: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+    max-width: 500px;
+}
+
+
+
+textarea {
+    height: 200px;
+}
+
+/* 同意文とボタン */
+.confirm {
+    font-family: "Noto Sans JP", sans-serif;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 400;
+    margin-top: 30px;
+}
+.underLine {
+    border-bottom: 1px solid #303030;
+}
+
+.form2 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+input[type="submit"] {
+    background-color: #fb6868;
+    font-family: "Noto Sans JP", sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 60px;
+    cursor: pointer;
+    border-radius: 9999px ; 
+    transition: 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #fff;
+    color: #fb6868;
+}
+/*入力欄エラーメッセージ表示*/
+.error{
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    color:#d33;
+}
+.form3,
+.form4 {
+    text-align: center;
+}
+
+.form3 button {
+    background-color: #fb6868;
+    font-family: "Noto Sans JP", sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 60px;
+    cursor: pointer;
+    border-radius: 9999px ; 
+    transition: 0.3s;
+    margin-bottom: 5%;
+}
+.form4 button {
+    background-color: #2AA6A6;
+    font-family: "Noto Sans JP", sans-serif;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 60px;
+    cursor: pointer;
+    border-radius: 9999px ; 
+    transition: 0.3s;
+}
+.form3 button:hover {
+    background-color: #fff;
+    color: #fb6868;
+}
+.form4 button:hover {
+    background-color: #fff;
+    color: #2aa6a6;
+}
+.confirmSection {
+    margin-bottom: 10%;
+}
+
+
+/*入力フォーム確認画面表示後の送信後の画面のCSS*/
+.sendText1 {
+    font-size: 32px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 60px 0;
+}
+.sendText2 {
+    font-size: 24px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.5;
+    margin: 5% auto;
+}
+.backBtn {
+    width: 150px;
+    height: 60px;
+    border: 1px solid #505050;
+    background-color: #505050;
+    color: #EEE;
+    font-size: 24px;
+    padding: 15px 0;
+    margin: auto;
+    cursor: pointer;
+    border-radius: 9999px ; 
+    transition: 0.3s;
+    margin: 5% auto;
+}
+#thanksSection {
+    background-image: url(../images/Actitivities_Tab_img3.png);
+    background-size: cover;  
+    background-position: center; 
+    width: 100%;
+    min-height: 500px;   
+    margin: 5% auto;  
+}
+
+
+
+
+/* 下層ページ */
+/*　ヘッダー部分　*/
+.mainHeader {
+    background-size: unset; 
+    background-position: unset; 
+    background-repeat: no-repeat;
+    }
+
+.headerAll {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box; 
+    }
+/* パンくずリスト */
+.breadcrumbList {
+    display: flex;
+    list-style: none;
+    padding: 10px 20px;
+    font-size: 10px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    position: absolute;
+    top: 27%;
+}
+
+.breadcrumbItem + .breadcrumbItem::before {
+    content: "-";
+    margin: 0 10px;
+    color: #505050;
+}
+
+.breadcrumbItem a {
+    text-decoration: none;
+    color: #505050;
+}
+
+.breadcrumbItem a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbItem span {
+    color: #333;
+    font-weight: bold;
+}
+
+/*下層ページタイトル*/
+.SubTitle {
+    position: absolute;
+    right: 5%;
+    top: 25%;
+}
+h1 {
+    font-size: 36px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #505050;
+}
+h2 {
+    font-size: 12px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #505050;
+    text-align: right;
+}
+
+/* アクティビティ　イントロ部分 */
+#ActivitiesIntro {
+    margin: 10%;
+}
+.IntroBox {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+.Introduction{
+    position: relative;
+    padding-left: 20px;
+    order: 2;
+}
+.Introduction::after {
+    content: "";
+    position: absolute;
+    left: 1;
+    top: 0;
+    bottom: 0;              /* これで「タイトルの上〜本文の下」まで繋がります */
+    width: 1px;
+    background-color: #000;
+
+}
+.IntroTitle {
+    font-size: 20px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #303030;
+    margin-bottom: 50px;
+}
+.IntroText {
+    font-size: 12px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    color: #303030;
+}
+.IntroImg {
+    order: 1;
+}
+.IntroImg img {
+    width: 184px;
+    height: 255px;
+}
+
+/* アクティビティ、タブで切り替えるエリア部分 */
+#activitiesContents {
+    margin-bottom: 15%;
+}
+.tabMenu {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.tabItem {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 400;
+    color: #303030;
+    padding-bottom: 5px;
+    font-family: "Oswald", sans-serif;
+    line-height: 1.5;
+    font-size: 12px;
+}
+
+.tabItem.active {
+    color: #303030;
+    border-bottom: 1px solid #303030; /* 現在選択中の印 */
+}
+#tabImage {
+    width: 300px;
+    margin-left: 3%;
+    object-fit: contain;
+}
+#tabContent {
+    position: relative;
+}
+.activitiesContentsBox {
+    position: static;
+    border: 1px solid #fff;
+    background-color: #fff;
+    width: 330px;
+    height: 250px;
+    padding: 20px;
+}
+.activitiesContentsTitle {
+    font-size: 20px;
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #303030;
+    margin-bottom: 20px;
+}
+.activitiesContentsText {
+    font-size: 12px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    color: #505050;
+}
+.activitiesLine {
+    border: 1px solid #505050;
+    margin: 4% auto 6% auto;
+}
+
+/* アクティビティ　
+価格表示 */
+#PriceLocation {
+    position: relative;
+    background-color: #f2f2f2;
+    margin-right: auto;
+    margin-bottom: 10%;
+    width: auto;
+    max-width: 1250px;
+    height: 2000px;
+}
+.priceImage {
+    position: static;
+    margin: 0 10%;
+}
+.priceImage img {
+    width: 300px;
+    height: 300px;
+}
+.priceTitle {
+    position: absolute;
+    top: 18%;
+    left: 5%;
+    z-index: 2;
+}
+.priceText {
+    position: absolute;
+    top: 22%;
+    right: 3%;
+    width: 350px;
+    height: 480px;
+    border: 1px solid #303030;
+    z-index: 2;
+    padding: 7%;
+}
+.priceText::after {
+    content: "";
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+.pPrice {
+    font-size: 14px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 2;
+    color: #808080;
+}
+.pContents {
+    font-size: 20px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #303030;
+    margin: 7% auto;
+}
+.pText {
+    font-size: 12px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    color: #303030;margin-bottom: 2%;
+}
+/* コースト料金の余白 */
+.priceAmount {
+    margin-left: 20%;
+}
+
+/* アクティビティ 
+地図エリア */
+.locationImage {
+    position: absolute;
+    top: 55%;
+    left: 9%;
+}
+.locationImage img {
+    width: 308px;
+    height: 308px;
+}
+.locationTitle {
+    position: absolute;
+    top: 75%;
+    left: 3%;
+}
+.locationText {
+    position: absolute;
+    top: 78%;
+    right: 5%;
+    width: 350px;
+    height: 420px;
+    border: 1px solid #303030;
+    z-index: 2;
+    padding: 10%;
+}
+.locationText::after {
+    content: "";
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+}
+/*　フードページ　*/
+/* 親コンテナの設定 */
+#GridSection {
+    margin-bottom: 20%;
+}
+.GridLayout {
+  display: grid;
+  grid-template-columns: repeat(8, 40px); /* 800px */
+  grid-template-rows: repeat(10, 40px);    /* 1000px */
+  width: 320px;
+  height: 400px;
+  margin: 13% auto;
+}
+
+.GridLayout img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 各画像の正確なサイズ配置 */
+.GridItem1 { 
+    grid-column: 1 / 4;
+    grid-row: 1 / 4; 
+}
+.GridItem2  {
+    grid-column: 4 / 6;
+    grid-row: 1 / 3;
+}
+.GridItem3  {
+    grid-column: 6 / 9; 
+    grid-row: 1 / 6; 
+}
+.GridItem4  { 
+    grid-column: 1 / 4; 
+    grid-row: 4 / 6; 
+} 
+.GridItem5  {
+    grid-column: 4 / 6; 
+    grid-row: 3 / 6; 
+}
+.GridItem6  { 
+    grid-column: 1 / 3; 
+    grid-row: 6 / 9; 
+} 
+.GridItem7  { 
+    grid-column: 3 / 5; 
+    grid-row: 6 / 9; 
+}
+.GridItem8  {
+    grid-column: 5 / 9; 
+    grid-row: 6 / 8; 
+} 
+.GridItem9  { 
+    grid-column: 1 / 5; 
+    grid-row: 9 / 11; 
+} 
+.GridItem10 { 
+    grid-column: 5 / 9; 
+    grid-row: 8 / 11; 
+}
+
+.GridTextBox {
+    width: 280px;
+    height: 150px;
+    padding-left: 20px;
+    position: relative;
+    margin-left: 5%;
+}
+.GridTextBox::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;    
+    width: 1px;
+    background-color: #000;
+    z-index: 1;
+    margin-left: 2%;
+}
+.GridTitle {
+    font-size: 20px;
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #303030;
+    margin-bottom: 10%;
+}
+.GridText {
+    font-size: 12px;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    color: #303030;
+}
+
+/* 外枠のボックス設定 */
+.BestFoodsBox {
+  width: 350px; 
+  margin: 0 auto;
+  border: 1px solid #303030;
+  padding: 10px 5px;
+  position: relative;
+}
+
+/* タイトルを枠線の中央に重ねる */
+.BestFoodsTitle {
+  position: absolute;
+  top: -28px; 
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff; /* 背景と同じ色にして線を消す */
+  padding: 0;
+  text-align: center;
+  width: 220px;
+  height: 50px;
+}
+
+.BestFoodsTitle1 {
+  margin: 0;
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #303030;
+}
+
+.BestFoodsTitle2 {
+    font-size: 14px;
+    font-family: "Oswald", sans-serif;
+    color: #303030;
+    line-height: 2;
+}
+
+.BestFoodsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 70px 60px; 
+  margin: 9% 0;
+}
+
+.BestFoodsContainer {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.BestFoodsContainerImg img {
+  width: 310px;
+  height: 240px;
+  display: block;
+}
+
+.BestFoodsContainerTitle {
+  width: 100%;
+  margin: 5%;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 1.5px;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+}
+
+.BestFoodsContainerText {
+  width: 90%;
+  margin: auto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 1.5px;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #505050;
+}
+/*フードページ　
+レストラン部分*/
+.RestaurantBox {
+  position: relative;
+  margin: 20% auto;
+  width: 365px;
+  height: 350px;
+  object-fit: contain;
+}
+.RestaurantBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.RestaurantTitle {
+    position: absolute;
+    top: -3%;
+    left: 31%;
+    text-align: center;
+}
+.RestaurantTitle1 {
+    font-size: 20px;
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #303030;
+}
+.RestaurantTitle2 {
+    font-size: 12px;
+    font-family: "Oswald", sans-serif;
+    color: #303030;
+    line-height: 1.5;
+    font-weight: 400;
+}
+.RestaurantList {
+  position: absolute;
+  top: 15%;
+  left:3%;
+  width: 320px; 
+}
+
+.RestaurantList p {
+  display: flex;                
+  justify-content: space-between; 
+  align-items: center;         
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 1.5px;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+  padding: 10px 0;
+  margin: 0;                    
+}
+
+.RestaurantLine {
+  border-bottom: 1px solid #303030;
+  color: #505050;
+}
+
+/* リンク自体の色や下線を調整 */
+.RestaurantList a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.RestaurantList a img {
+  margin-left: 10px;
+  width: 14px;
+}
+
+/*ホテルページ
+イントロ部分*/
+.HotelIntroBox {
+    position: relative; 
+    width: 375px;
+    height: 730px;
+    margin-left: auto;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.HotelIntroBox img {
+    position: absolute;
+    right: 1%;           
+    top: 40%;
+    width: 263px;    
+    height: 350px;
+    z-index: 0;
+    object-fit: cover;
+    object-position: center center;
+}
+.responsiveBr {
+    display: block;
+  }
+.HotelIntroTextBox {
+    position: absolute;
+    left: 2%;
+    top: 20%;         
+    transform: translateY(-50%);
+    width: 230px;     
+    padding: 5px;
+    z-index: 0;        
+}
+
+.HotelIntroTextBox::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;    
+    width: 1px;
+    background-color: #000;
+    z-index: 2;
+}
+
+/* テキストのスタイル */
+.HotelIntroTitle p {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #303030;
+  margin-bottom: 10%;
+}
+
+.HotelIntroText p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 1.5px;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+}
+.HotelIntroBox2 {
+    position: relative; 
+    height: 750px;
+    margin: 0;
+}
+.HoteiIntroImage1 {
+    position: absolute;
+    top: -4%;
+    right: 1%;
+    width: 112px;
+    height: 306px;  
+
+}
+.HoteiIntroImage1 img {
+    width: 112px;
+    height: 306px;  
+    height: auto;
+    z-index: 1;
+}
+.HoteiIntroImage2 {
+    position: absolute;
+    top: 20%;
+    margin-right: auto;
+    width: 240px;
+    height: 226px;
+}
+.HoteiIntroImage2 img{
+    width: 240px;
+    height: 226px;
+}
+.HotelIntroTextBox2 {
+    position: absolute;
+    bottom: 15%;
+    right: 10%;
+    width: 230px;
+    height: 224px;
+    padding-left: 20px;
+}
+.HotelIntroTitle2 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #303030;
+  margin-bottom: 10%;
+}
+.HotelIntroText2 {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 1.5px;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+}
+.HotelIntroTextBox2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;    
+    width: 1px;
+    background-color: #000;
+    z-index: 2;
+}
+.ViewImage {
+  margin-left: auto;
+  width: 349px;
+  height: 176px;
+}
+.ViewImage img {
+    width: 349px;
+  height: 176px;
+}
+
+.BestHotelName {
+   margin: 10% auto;
+}
+/*沖縄のおすすめ宿　フォント*/
+.BestHotelName1 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #303030;
+  text-align: center;
+}
+/*PICKUP　フォント*/
+.BestHotelName2 {
+    font-size: 12px;
+    font-family: "Oswald", sans-serif;
+    color: #303030;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+}
+
+/*各ホテルの紹介部分*/
+.BestHotelBox1,
+.BestHotelBox2,
+.BestHotelBox3 {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 30px 15px;
+    
+}
+.BestHotelBox1 {
+    background-color: #f4f4f4;
+}
+.BestHotelBox2 {
+    background-color: #ececec;
+}
+.BestHotelBox3 {
+    background-color: #e7e7e7;
+}
+.HotelImage {
+    width: 349px;
+    height: 244px;
+}
+.HotelImage img{
+    width: 349px;
+    height: 244px;
+}
+
+.HotelTextBox {
+    margin: auto;
+}
+.HotelTitle {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #303030;
+  margin: 5% 0;
+}
+.HotelText {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 1.5px;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #505050;
+}
+.HotelLine {
+  border: 1px dotted#000;
+  margin: 3% auto;
+}
+
+}
